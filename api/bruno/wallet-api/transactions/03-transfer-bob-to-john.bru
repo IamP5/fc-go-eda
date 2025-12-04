@@ -1,0 +1,31 @@
+meta {
+  name: Transfer - Bob to John ($25)
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "{{bobAccountId}}",
+    "account_id_to": "{{johnAccountId}}",
+    "amount": 25
+  }
+}
+
+tests {
+  test("should create transaction successfully", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+    expect(res.body).to.have.property('id');
+    expect(res.body.amount).to.equal(25);
+  });
+}

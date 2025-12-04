@@ -1,0 +1,33 @@
+meta {
+  name: Transfer - Insufficient Funds (Error)
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "{{bobAccountId}}",
+    "account_id_to": "{{johnAccountId}}",
+    "amount": 999999999
+  }
+}
+
+tests {
+  test("should reject insufficient funds", function() {
+    expect(res.status).to.equal(400);
+  });
+}
+
+docs {
+  Error scenario: Transaction should fail when account has insufficient funds.
+}

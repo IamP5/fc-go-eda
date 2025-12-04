@@ -1,0 +1,35 @@
+meta {
+  name: Seed Data - With Pre-existing Accounts
+  type: http
+  seq: 1
+}
+
+docs {
+  # Pre-seeded Test Data
+  
+  If you want to test with pre-seeded data from the database,
+  use these sample IDs (after running the SQL seed script):
+  
+  ## Clients:
+  - John: `client-1-uuid-0001-000000000001`
+  - Jane: `client-2-uuid-0002-000000000002`
+  - Bob:  `client-3-uuid-0003-000000000003`
+  
+  ## Accounts (with initial balances):
+  - John's Account: `account-1-uuid-0001-00000000001` (Balance: $1000)
+  - Jane's Account: `account-2-uuid-0002-00000000002` (Balance: $500)
+  - Bob's Account:  `account-3-uuid-0003-00000000003` (Balance: $250)
+  
+  ## SQL to seed data:
+  ```sql
+  INSERT INTO clients (id, name, email, created_at) VALUES 
+  ('client-1-uuid-0001-000000000001', 'John Doe', 'john@example.com', NOW()),
+  ('client-2-uuid-0002-000000000002', 'Jane Smith', 'jane@example.com', NOW()),
+  ('client-3-uuid-0003-000000000003', 'Bob Wilson', 'bob@example.com', NOW());
+  
+  INSERT INTO accounts (id, client_id, balance, created_at) VALUES 
+  ('account-1-uuid-0001-00000000001', 'client-1-uuid-0001-000000000001', 1000.00, NOW()),
+  ('account-2-uuid-0002-00000000002', 'client-2-uuid-0002-000000000002', 500.00, NOW()),
+  ('account-3-uuid-0003-00000000003', 'client-3-uuid-0003-000000000003', 250.00, NOW());
+  ```
+}

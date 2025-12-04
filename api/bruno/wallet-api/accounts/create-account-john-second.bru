@@ -1,0 +1,27 @@
+meta {
+  name: Create Second Account for John
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/accounts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "client_id": "{{johnClientId}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 || res.status === 201) {
+    bru.setVar("johnSecondAccountId", res.body.ID);
+  }
+}

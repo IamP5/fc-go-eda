@@ -1,0 +1,27 @@
+meta {
+  name: Create Account for John
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/accounts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "client_id": "{{johnClientId}}"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 || res.status === 201) {
+    bru.setVar("johnAccountId", res.body.ID);
+  }
+}

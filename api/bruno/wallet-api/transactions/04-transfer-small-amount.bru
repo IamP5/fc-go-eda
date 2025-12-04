@@ -1,0 +1,29 @@
+meta {
+  name: Transfer - Small Amount ($0.01)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "{{johnAccountId}}",
+    "account_id_to": "{{janeAccountId}}",
+    "amount": 0.01
+  }
+}
+
+tests {
+  test("should handle small amounts", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+  });
+}

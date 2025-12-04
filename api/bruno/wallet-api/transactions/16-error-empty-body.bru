@@ -1,0 +1,29 @@
+meta {
+  name: Transfer - Empty Body (Error)
+  type: http
+  seq: 16
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {}
+}
+
+tests {
+  test("should reject empty body", function() {
+    expect(res.status).to.equal(400);
+  });
+}
+
+docs {
+  Error scenario: Transaction should fail when body is empty.
+}

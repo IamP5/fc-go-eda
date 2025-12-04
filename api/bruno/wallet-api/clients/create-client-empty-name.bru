@@ -1,0 +1,28 @@
+meta {
+  name: Create Client - Empty Name (Error)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/clients
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "",
+    "email": "test@example.com"
+  }
+}
+
+tests {
+  test("should return error for empty name", function() {
+    expect(res.status).to.equal(500);
+  });
+}

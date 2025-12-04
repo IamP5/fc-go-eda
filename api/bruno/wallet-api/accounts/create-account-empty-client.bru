@@ -1,0 +1,27 @@
+meta {
+  name: Create Account - Empty Client ID (Error)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/accounts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "client_id": ""
+  }
+}
+
+tests {
+  test("should return error for empty client id", function() {
+    expect(res.status).to.equal(500);
+  });
+}

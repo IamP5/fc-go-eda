@@ -1,0 +1,28 @@
+meta {
+  name: Transfer - Large Amount ($9999.99)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "{{johnAccountId}}",
+    "account_id_to": "{{bobAccountId}}",
+    "amount": 9999.99
+  }
+}
+
+docs {
+  This transaction may fail if the account doesn't have sufficient funds.
+  Make sure to add balance to the accounts before running this test.
+}

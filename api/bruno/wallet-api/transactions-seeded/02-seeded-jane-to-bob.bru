@@ -1,0 +1,35 @@
+meta {
+  name: Transfer with Seeded Data - Jane to Bob
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "account-2-uuid-0002-00000000002",
+    "account_id_to": "account-3-uuid-0003-00000000003",
+    "amount": 75
+  }
+}
+
+docs {
+  Uses pre-seeded account IDs from the database.
+  Jane sends $75 to Bob.
+}
+
+tests {
+  test("should create transaction with seeded data", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+    expect(res.body).to.have.property('id');
+  });
+}

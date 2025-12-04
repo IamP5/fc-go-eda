@@ -1,0 +1,27 @@
+meta {
+  name: Create Account - Invalid Client (Error)
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/accounts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "client_id": "non-existent-client-id"
+  }
+}
+
+tests {
+  test("should return error for invalid client", function() {
+    expect(res.status).to.equal(500);
+  });
+}

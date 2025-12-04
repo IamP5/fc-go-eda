@@ -1,0 +1,35 @@
+meta {
+  name: Transfer with Seeded Data - Circular Flow
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "account-1-uuid-0001-00000000001",
+    "account_id_to": "account-3-uuid-0003-00000000003",
+    "amount": 200
+  }
+}
+
+docs {
+  Uses pre-seeded account IDs from the database.
+  John sends $200 directly to Bob, completing a circular flow scenario.
+}
+
+tests {
+  test("should create transaction with seeded data", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+    expect(res.body).to.have.property('id');
+  });
+}

@@ -1,0 +1,34 @@
+meta {
+  name: Transfer - John Internal (Between Own Accounts)
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "account_id_from": "{{johnAccountId}}",
+    "account_id_to": "{{johnSecondAccountId}}",
+    "amount": 10
+  }
+}
+
+docs {
+  Internal transfer between John's two accounts.
+  Tests the scenario where the same client transfers money between their own accounts.
+}
+
+tests {
+  test("should allow internal transfers", function() {
+    expect(res.status).to.be.oneOf([200, 201]);
+  });
+}
