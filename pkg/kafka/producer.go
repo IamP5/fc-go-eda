@@ -19,6 +19,7 @@ func (p *Producer) Publish(msg interface{}, key []byte, topic string) error {
 	if err != nil {
 		return err
 	}
+	defer producer.Close()
 
 	msgJson, err := json.Marshal(msg)
 	if err != nil {
@@ -32,7 +33,8 @@ func (p *Producer) Publish(msg interface{}, key []byte, topic string) error {
 	}
 	err = producer.Produce(message, nil)
 	if err != nil {
-		panic(err)
+		return err
 	}
+
 	return nil
 }
